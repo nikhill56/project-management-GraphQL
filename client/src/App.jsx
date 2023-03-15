@@ -1,14 +1,42 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import Typography from "@mui/material/Typography";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import "./App.scss";
+import { Navbar, Clients } from "./components";
+
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        clients: {
+          merge(existing, incoming) {
+            return incoming;
+          },
+        },
+        projects: {
+          merge(existing, incoming) {
+            return incoming;
+          },
+        },
+      },
+    },
+  },
+});
+const client = new ApolloClient({
+  uri: "http://localhost:5000/graphql",
+  cache: cache,
+});
 
 function App() {
   return (
-    <div className="App">
-      <Typography variant="h1" color="black">
-        Yo
-      </Typography>
-    </div>
+    <>
+      <ApolloProvider client={client}>
+        <div className="app">
+          <Navbar />
+          <Clients />
+        </div>
+      </ApolloProvider>
+    </>
   );
 }
 
