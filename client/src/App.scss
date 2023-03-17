@@ -1,5 +1,12 @@
 .app {
-    background-color: #fff;
-    font-family: var(--font-base) !important;
+  background-color: #fff;
+  font-family: var(--font-base) !important;
+  a{
+    text-decoration: none;
   }
-  
+}
+.app__flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
